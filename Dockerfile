@@ -5,7 +5,7 @@ ENV SCALA_VERSION=2.13.4 \
   SBT_VERSION=1.4.7
 
 # RUN \
-RUN apk add --no-cache --virtual=.build-dependencies wget ca-certificates 
+RUN apk add --no-cache wget ca-certificates 
 RUN apk add --no-cache bash
 RUN cd "/tmp"
 RUN wget "https://downloads.typesafe.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz"
