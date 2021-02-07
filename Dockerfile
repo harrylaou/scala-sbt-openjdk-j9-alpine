@@ -7,18 +7,19 @@ ENV SCALA_VERSION=2.13.4 \
 # RUN \
 RUN apk add --no-cache --virtual build-dependencies wget ca-certificates 
 RUN apk add --no-cache bash
-RUN cd "/tmp"
+RUN cd /tmp
 RUN wget "https://downloads.typesafe.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz"
 RUN tar xzf "scala-${SCALA_VERSION}.tgz"
 RUN find . 
 RUN mkdir ${SCALA_HOME}
 RUN ls ${SCALA_HOME}
-# RUN rm "/tmp/scala-${SCALA_VERSION}/bin/*.bat"
+RUN ls /tmp
+RUN rm /tmp/scala-${SCALA_VERSION}/bin/*.bat
 RUN mv /tmp/scala-${SCALA_VERSION}/bin  ${SCALA_HOME}
 RUN mv  /tmp/scala-${SCALA_VERSION}/lib ${SCALA_HOME}
 RUN ln -s ${SCALA_HOME}/bin* /usr/bin/
 RUN apk del .build-dependencies
-RUN rm -rf /tmp/"*
+RUN rm -rf /tmp/*
 
 # RUN \  
 RUN echo $SCALA_VERSION $SBT_VERSION
