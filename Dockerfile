@@ -10,15 +10,18 @@ RUN apk add --no-cache bash
 RUN cd "/tmp"
 RUN wget "https://downloads.typesafe.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz"
 RUN tar xzf "scala-${SCALA_VERSION}.tgz"
-RUN mkdir "${SCALA_HOME}"
+RUN find . 
+RUN mkdir ${SCALA_HOME}
+RUN ls ${SCALA_HOME}
 # RUN rm "/tmp/scala-${SCALA_VERSION}/bin/*.bat"
-RUN mv "/tmp/scala-${SCALA_VERSION}/bin" "/tmp/scala-${SCALA_VERSION}/lib" "${SCALA_HOME}"
-RUN ln -s "${SCALA_HOME}/bin/"* "/usr/bin/"
+RUN mv /tmp/scala-${SCALA_VERSION}/bin  ${SCALA_HOME}
+RUN mv  /tmp/scala-${SCALA_VERSION}/lib ${SCALA_HOME}
+RUN ln -s ${SCALA_HOME}/bin* /usr/bin/
 RUN apk del .build-dependencies
-RUN rm -rf "/tmp/"* 
+RUN rm -rf /tmp/"*
 
 # RUN \  
-RUN echo "$SCALA_VERSION $SBT_VERSION"
+RUN echo $SCALA_VERSION $SBT_VERSION
 RUN apk add --no-cache bash curl bc ca-certificates
 RUN update-ca-certificates
 RUN scala -version
