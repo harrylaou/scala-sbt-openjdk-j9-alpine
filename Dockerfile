@@ -17,14 +17,14 @@ RUN ln -s "${SCALA_HOME}/bin/"* "/usr/bin/"
 RUN apk del .build-dependencies
 RUN rm -rf "/tmp/"* 
 
-RUN \  
-  echo "$SCALA_VERSION $SBT_VERSION" && \
-  apk add --no-cache bash curl bc ca-certificates && \
-  update-ca-certificates && \
-  scala -version && \
-  scalac -version && \
-  curl -fsL https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$SBT_VERSION.tgz | tar xfz - -C /usr/local && \
-  $(mv /usr/local/sbt-launcher-packaging-$SBT_VERSION /usr/local/sbt || true) && \
-  ln -s /usr/local/sbt/bin/* /usr/local/bin/ && \
-  apk del curl && \
-  sbt -Dsbt.rootdir=true sbtVersion
+# RUN \  
+RUN echo "$SCALA_VERSION $SBT_VERSION"
+RUN apk add --no-cache bash curl bc ca-certificates
+RUN update-ca-certificates
+RUN scala -version
+RUN scalac -version
+RUN curl -fsL https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$SBT_VERSION.tgz | tar xfz - -C /usr/local
+RUN $(mv /usr/local/sbt-launcher-packaging-$SBT_VERSION /usr/local/sbt || true)
+RUN ln -s /usr/local/sbt/bin/* /usr/local/bin/
+RUN apk del curl
+RUN sbt -Dsbt.rootdir=true sbtVersion
